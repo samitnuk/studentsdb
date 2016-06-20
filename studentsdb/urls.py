@@ -33,7 +33,7 @@ urlpatterns = [
         name='group_add'),
     url(r'^groups/(?P<gid>\d+)/edit/$', 'students.views.groups_edit',
         name='groups_edit'),
-    url(r'^groups/(?P<gid>\d+)/delete/$', 'students.views.grops_delete',
+    url(r'^groups/(?P<gid>\d+)/delete/$', 'students.views.groups_delete',
         name='groups_delete'),
 
     # Journal urls
