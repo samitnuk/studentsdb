@@ -1,0 +1,31 @@
+/* Global Styles */
+body {
+    font-family: Ubuntu;
+}
+
+.alert {
+    margin: 10px 0 5px 0;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+}
+
+/* Group Selector Style */
+#groupe-selector {
+    margin-top: 50px;
+}
+#groupe-selector select {
+    width: 80%;
+    margin: 0;
+    background-color: #fff;
+    border: 1 px solid #ccc;
+    height: 30px;
+    line-height: 30px;
+    color: #555;
+}
+
+/* Footer Style */
+#footer {
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
