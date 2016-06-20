@@ -1,3 +1,5 @@
+{% load static from staticfiles %}
+
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -6,7 +8,7 @@
   <meta name="description" value="Система обліку студентів навчального закладу" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
-  <link rel="stylesheet" href="/static/css/main.css"/>
+  <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
 </head>
 <body>
   <!-- Start Container -->
@@ -62,7 +64,7 @@
           <tbody>
             <tr>
               <td>1</td>
-              <td><img src="/static/img/image1.jpg" height="30" class="img-circle"></td>
+              <td><img src="{% static 'img/image1.jpg' %}" height="30" class="img-circle"></td>
               <td><a href="{% url 'students_edit' 1 %}">Корост</a></td>
               <td><a href="{% url 'students_edit' 1 %}">Андрій</a></td>
               <td>2123</td>
@@ -81,7 +83,7 @@
             </tr>
             <tr>
               <td>2</td>
-              <td><img src="/static/img/image2.jpg" height="30" class="img-circle"></td>
+              <td><img src="{% static 'img/image2.jpg' %}" height="30" class="img-circle"></td>
               <td><a href="{% url 'students_edit' 2 %}">Подоба</a></td>
               <td><a href="{% url 'students_edit' 2 %}">Віталій</a></td>
               <td>254</td>
@@ -100,7 +102,7 @@
             </tr>
             <tr>
               <td>3</td>
-              <td><img src="/static/img/image3.jpg" height="30" class="img-circle"></td>
+              <td><img src="{% static 'img/image3.jpg' %}" height="30" class="img-circle"></td>
               <td><a href="{% url 'students_edit' 3 %}">Притула</a></td>
               <td><a href="{% url 'students_edit' 3 %}">Тарас</a></td>
               <td>5332</td>
