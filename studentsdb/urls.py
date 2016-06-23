@@ -13,8 +13,9 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, patterns
 from django.contrib import admin
+from django.views import static
 
 from students.views import students, groups
 
@@ -42,3 +43,11 @@ urlpatterns = [
 
     url(r'^admin/', admin.site.urls),
 ]
+
+from .settings import MEDIA_ROOT, DEBUG
+
+if DEBUG:
+    # Serv files from media folder
+    urlpatterns += patterns('',
+        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+        'document_root': MEDIA_ROOT}))
