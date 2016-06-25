@@ -82,6 +82,8 @@
   </tbody>
 </table><!-- End Students Listing -->
 
-{% include 'students/pagination.html' %}
+{% if students.has_other_pages %}
+    {% include 'students/pagination.html' with dbdata=students%}
+{% endif %}
 
 {% endblock content %}
