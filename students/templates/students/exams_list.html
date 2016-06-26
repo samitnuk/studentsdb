@@ -1,0 +1,82 @@
+{% extends 'students/base.html' %}
+
+{% load static from staticfiles %}
+
+{% block meta_title %}Іспити{% endblock meta_title %}
+
+{% block title %}Іспити{% endblock title %}
+
+{% block content %}
+<a class="btn btn-primary" href="{% url 'exams_add' %}">Додати іспит</a>
+
+<!-- Start Students Listing -->
+<table class="table">
+  {% with order_by=request.GET.order_by reverse=request.GET.reverse %}
+  <thead>
+    <tr>
+      <th>
+        <a href="{% url 'exams' %}?order_by=id{% if order_by == 'id' and reverse != '1' %}&amp;reverse=1{% endif %}">
+          ID
+          {% if order_by == 'id' %}
+            {% if reverse != '1' %}&uarr;{% elif reverse = '1' %}&darr;{% endif %}
+          {% endif %}
+        </a>
+      </th>
+      <th>
+        <a href="{% url 'exams' %}?order_by=title{% if order_by == 'title' and reverse != '1' %}&amp;reverse=1{% endif %}">
+          Назва предмету
+          {% if order_by == 'title' or order_by == '' %}
+            {% if reverse != '1' %}&uarr;{% elif reverse = '1' %}&darr;{% endif %}
+          {% endif %}
+        </a>
+      </th>
+      <th>
+        <a href="{% url 'exams' %}?order_by=teacher{% if order_by == 'teacher' and reverse != '1' %}&amp;reverse=1{% endif %}">
+          Викладач
+          {% if order_by == 'teacher' %}
+            {% if reverse != '1' %}&uarr;{% elif reverse = '1' %}&darr;{% endif %}
+          {% endif %}
+        </a>
+      </th>
+      <th>
+        <a href="{% url 'exams' %}?order_by=exam_group{% if order_by == 'exam_group' and reverse != '1' %}&amp;reverse=1{% endif %}">
+          Група
+          {% if order_by == 'exam_group' and reverse != '1' %}
+            {% if reverse != '1' %}&uarr;{% elif reverse = '1' %}&darr;{% endif %}
+          {% endif %}
+        </a>
+      </th>
+      <th>Дії</th>
+    </tr>
+  </thead>
+  {% endwith %}
+  <tbody>
+    {% for exam in exams %}
+    <tr>
+      <td>{{ exam.id }}</td>
+      <td><a href="{% url 'exams_edit' exam.id %}">{{ exam.title }}</a></td>
+      <td>{{ exam.teacher }}</td>
+      <td><a href="{% url 'groups_edit' exam.exam_group.id %}">{{ exam.exam_group }}</td>
+      <td>
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Дія <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'exams_edit' exam.id %}">Редагувати</a></li>
+            <li><a href="/journal/{{ exam.id}}">Відвідування</a></li>
+            <li><a href="{% url 'exams_delete' exam.id %}">Видалити</a></li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table><!-- End Students Listing -->
+
+{% if exams.has_other_pages %}
+  {% url 'exams' as home_url %}
+  {% include 'students/pagination.html' with dbdata=exams url=home_url %}
+{% endif %}
+
+{% endblock content %}

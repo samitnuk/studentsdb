@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
-from students.views import students, groups
+from students.views import students, groups, exams
 
 urlpatterns = [
     
@@ -39,6 +39,15 @@ urlpatterns = [
         name='groups_edit'),
     url(r'^groups/(?P<gid>\d+)/delete/$', groups.groups_delete,
         name='groups_delete'),
+
+    # Exams urls
+    url(r'^exams/$', exams.exams_list, name='exams'),
+    url(r'^exams/add/$', exams.exams_add,
+        name='exams_add'),
+    url(r'^exams/(?P<eid>\d+)/edit/$', exams.exams_edit,
+        name='exams_edit'),
+    url(r'^exams/(?P<eid>\d+)/delete/$', exams.exams_delete,
+        name='exams_delete'),
 
     # Journal urls
 
