@@ -12,11 +12,15 @@
         <form class="form-horizontal" action="{% url 'students_add' %}"
               enctype="multipart/form-data" method="POST">
 
+          {% csrf_token %}
+
           <div class="form-group">
             <label for="first_name" class="col-xs-2 control-label">Ім’я *</label>
             <div class="col-xs-4">
               <input type="text" class="form-control"
-                     name="first_name" id="first_name" >
+                     name="first_name" id="first_name"
+                     value="{{ request.POST.first_name }}">
+              <span class="help-block with-errors">{{ errors.first_name }}</span>
             </div>
           </div>
 
@@ -24,7 +28,9 @@
             <label for="last_name" class="col-xs-2 control-label">Прізвище *</label>
             <div class="col-xs-4">
               <input type="text" class="form-control"
-                     name="last_name" id="last_name">
+                     name="last_name" id="last_name"
+                     value="{{ request.POST.last_name }}">
+              <span class="help-block with-errors">{{ errors.last_name }}</span>
             </div>
           </div>
 
@@ -32,7 +38,8 @@
             <label for="middle_name" class="col-xs-2 control-label">По-батькові</label>
             <div class="col-xs-4">
               <input type="text" class="form-control"
-                     name="middle_name" id="middle_name">
+                     name="middle_name" id="middle_name"
+                     value="{{ request.POST.middle_name }}">
             </div>
           </div>
 
@@ -40,15 +47,19 @@
             <label for="ticket" class="col-xs-2 control-label">№ Білету *</label>
             <div class="col-xs-4">
               <input type="text" class="form-control"
-                     name="ticket" id="ticket">
+                     name="ticket" id="ticket"
+                     value="{{ request.POST.ticket }}">
+              <span class="help-block with-errors">{{ errors.ticket }}</span>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="birthday" class="col-xs-2 control-label">Дата народження</label>
+            <label for="birthday" class="col-xs-2 control-label">Дата народження *</label>
             <div class="col-xs-4">
               <input type="text" class="form-control"
-                     name="birthday" id="birthday">
+                     name="birthday" id="birthday"
+                     value="{{ request.POST.birthday }}">
+              <span class="help-block with-errors">{{ errors.birthday }}</span>
             </div>
           </div>
 
@@ -66,10 +77,11 @@
               <select class="form-control" id="student_group"
                       name="student_group">
                 <option value="">Виберіть групу</option>
-                {% for group in groups_db %}
-                <option value="{{ group.id }}">{{ group.title }}</option>
+                {% for group in groups %}
+                <option value="{{ group.id }}" {% if group.id == request.POST.student_group|add:0  %}selected="1"{% endif %}>{{ group.title }}</option>
                 {% endfor %}
               </select>
+              <span class="help-block with-errors">{{ errors.student_group }}</span>
             </div>
           </div>
 
@@ -81,16 +93,17 @@
             </dir>
           </div>
 
-        </form>
-        <div class="row">
-          <div class="jumbotron">
-            <div class="col-xs-2"></div>
-            <div class="col-xs-4">
-              <button type="submit" class="btn btn-primary" name="add_button">Зберегти</button>
-              <button type="submit" class="btn" name="cancel_button">Скасувати</button>
+          <div class="row">
+            <div class="jumbotron">
+              <div class="col-xs-2"></div>
+              <div class="col-xs-4">
+                <button type="submit" class="btn btn-primary" name="add_button">Зберегти</button>
+                <button type="submit" class="btn" name="cancel_button">Скасувати</button>
+              </div>
             </div>
           </div>
-        </div>
+        </form>
       </div>
+
 
 {% endblock content %}

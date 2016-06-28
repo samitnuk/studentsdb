@@ -75,8 +75,8 @@
 </table><!-- End Students Listing -->
 
 {% if exams.has_other_pages %}
-  {% url 'exams' as home_url %}
-  {% include 'students/pagination.html' with dbdata=exams url=home_url %}
+  {% url 'exams' as exams_url %}
+  {% include 'students/pagination.html' with dbdata=exams url=exams_url %}
 {% endif %}
 
 {% endblock content %}

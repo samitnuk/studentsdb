@@ -43,7 +43,7 @@
   </thead>
   {% endwith %}
   <tbody>
-    {% for group in groups_db %}
+    {% for group in groups %}
     <tr>
       <td> {{ group.id }}</td>
       <td><a href="{% url 'groups_edit' 1 %}">{{ group.title }}</a></td>
@@ -72,9 +72,9 @@
   </tbody>
 </table><!-- End Students Listing -->
 
-{% if groups_db.has_other_pages %}
+{% if groups.has_other_pages %}
   {% url 'groups' as groups_url %}
-  {% include 'students/pagination.html' with dbdata=groups_db url=groups_url%}
+  {% include 'students/pagination.html' with dbdata=groups url=groups_url %}
 {% endif %}
 
 {% endblock content %}

@@ -33,7 +33,7 @@ def groups_list(request):
         groups = paginator.page(paginator.num_pages)
 
     return render(request, 'students/groups_list.html',
-        {'groups_db': groups})
+        {'groups': groups})
 
 def groups_add(request):
     return HttpResponse('<h1>Group Add Form</h1>')
