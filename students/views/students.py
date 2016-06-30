@@ -1,6 +1,7 @@
 from datetime import datetime
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.core.urlresolvers import reverse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from ..models.students import Student
@@ -72,7 +73,7 @@ def students_add(request):
                     errors["birthday"] = \
                         "Введіть коректний формат дати (напр. 1984-12-30)"
                 else:
-                    data["birthday"] = birth_name
+                    data["birthday"] = birthday
 
             ticket = request.POST.get("ticket", "").strip()
             if not ticket:
@@ -100,7 +101,9 @@ def students_add(request):
                 student.save()
 
                 # redirect user to students list
-                return redirect("home")
+                return HttpResponseRedirect(
+                    "%s?status_message=Додано нового студента  -  %s %s" % (
+                    reverse("home"), last_name, first_name))
 
             else:
                 return render(request, "students/students_add.html",
@@ -108,11 +111,13 @@ def students_add(request):
                      "errors": errors})
         elif request.POST.get("cancel_button") is not None:
             # redirect to home page on cancel button
-            return redirect("home")
+            return HttpResponseRedirect(
+                    "%s?status_message=Додавання студента скасовано!" %
+                    reverse("home"))
     else:
         # initial form render
         return render(request, "students/students_add.html",
-            {"groups_db": Group.objects.all().order_by("title")})
+            {"groups": Group.objects.all().order_by("title")})
 
 def students_edit(request, sid):
     return HttpResponse("<h1>Edit Student %s</h1>" % sid)
