@@ -37,12 +37,14 @@
       </div class="col-xs-12">
         <ul class="nav nav-tabs">
           {% url 'home' as home_path %}
-          <li role="presentation" {% if request.path == home %}class="active"{% endif%}><a href="{% url 'home' %}">Студенти</a></li>
+          <li role="presentation" {% if request.path == home_path %}class="active"{% endif%}><a href="{% url 'home' %}">Студенти</a></li>
           <li role="presentation" {% if '/journal' in request.path %}class="active"{% endif%}><a href="/journal">Відвідування</a></li>
           {% url 'groups' as groups_path %}
-          <li role="presentation" {% if groups in request.path %}class="active"{% endif%}><a href="{% url 'groups' %}">Групи</a></li>
+          <li role="presentation" {% if groups_path in request.path %}class="active"{% endif%}><a href="{% url 'groups' %}">Групи</a></li>
           {% url 'exams' as exams_path %}
-          <li role="presentation" {% if exams in request.path %}class="active"{% endif%}><a href="{% url 'exams' %}">Іспити</a></li>
+          <li role="presentation" {% if exams_path in request.path %}class="active"{% endif%}><a href="{% url 'exams' %}">Іспити</a></li>
+          {% url 'contact_admin' as contact_admin_path %}
+          <li role="presentation" {% if contact_admin_path in request.path %}class="active"{% endif%}><a href="{% url 'contact_admin' %}">Контакт</a></li>
         </ul>
       <div>
     </div><!-- End Subheader -->
