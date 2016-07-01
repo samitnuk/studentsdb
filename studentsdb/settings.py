@@ -126,3 +126,14 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
+
+# email settings
+from .email_settings import (MY_ADMIN_EMAIL, MY_EMAIL_HOST_USER,
+                             MY_EMAIL_HOST_PASSWORD)
+
+ADMIN_EMAIL = MY_ADMIN_EMAIL
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = MY_EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = MY_EMAIL_HOST_PASSWORD
+EMAIL_USE_TLS = True
