@@ -52,7 +52,7 @@ urlpatterns = [
     # Journal urls
 
     # Contact Admin Form
-    url(r'^contact_admin/$', contact_admin.contact_admin,
+    url(r'^contact_admin/$', contact_admin.ContactView.as_view(),
         name='contact_admin'),
 
     url(r'^admin/', admin.site.urls),
