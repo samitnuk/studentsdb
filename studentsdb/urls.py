@@ -39,7 +39,8 @@ urlpatterns = [
         name='group_add'),
     url(r'^groups/(?P<gid>\d+)/edit/$', groups.groups_edit,
         name='groups_edit'),
-    url(r'^groups/(?P<gid>\d+)/delete/$', groups.groups_delete,
+    url(r'^groups/(?P<pk>\d+)/delete/$',
+        groups.GroupDeleteView.as_view(),
         name='groups_delete'),
 
     # Exams urls
