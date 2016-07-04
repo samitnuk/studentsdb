@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django import forms
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
@@ -10,12 +9,13 @@ from crispy_forms.layout import Submit
 
 from studentsdb.settings import ADMIN_EMAIL
 
+
 class ContactForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         # call original initializator
         super(ContactForm, self).__init__(*args, **kwargs)
-        
+
         # this helper object allows us to custimize form
         self.helper = FormHelper()
 
@@ -44,7 +44,7 @@ class ContactForm(forms.Form):
         label="Текст повідомлення",
         max_length=2560,
         widget=forms.Textarea)
-    
+
 
 # def contact_admin(request):
 #     # check if form was posted

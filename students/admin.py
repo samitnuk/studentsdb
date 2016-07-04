@@ -15,11 +15,12 @@ class StudentAdminForm(ModelForm):
         # get group where current student is leader
         groups = Group.objects.filter(leader=self.instance)
         if len(groups) > 0 and \
-            self.cleaned_data['student_group'] != groups[0]:
+                self.cleaned_data['student_group'] != groups[0]:
             raise ValidationError("Студент є старостою іншої групи.",
-                code='invalid')
+                                  code='invalid')
 
         return self.cleaned_data['student_group']
+
 
 class StudentAdmin(admin.ModelAdmin):
     list_display = ['last_name', 'first_name', 'ticket', 'student_group']
@@ -34,6 +35,7 @@ class StudentAdmin(admin.ModelAdmin):
 
     def view_on_site(self, obj):
         return reverse('students_edit', kwargs={'pk': obj.id})
+
 
 class GroupAdmin(admin.ModelAdmin):
     list_display = ['title', 'leader']

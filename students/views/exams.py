@@ -14,7 +14,7 @@ def exams_list(request):
         exams = exams.order_by(order_by)
         if request.GET.get('reverse', '') == '1':
             exams = exams.reverse()
-    
+
     # order by title if page loads firs time
     else:
         exams = exams.order_by('title')
@@ -31,15 +31,18 @@ def exams_list(request):
         # if page is oout of range (e.g. 9999), deliver
         # last page of results
         exams = paginator.page(paginator.num_pages)
-            
+
     return render(request, 'students/exams_list.html',
-        {'exams': exams})
+                  {'exams': exams})
+
 
 def exams_add(request):
     return HttpResponse('<h1>Exams Add Form</h1>')
 
+
 def exams_edit(request, eid):
     return HttpResponse('<h1>Edit Exam %s</h1>' % eid)
+
 
 def exams_delete(request, eid):
     return HttpResponse('<h1>Delete Exam %s</h1>' % eid)

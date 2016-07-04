@@ -1,5 +1,5 @@
 from datetime import datetime
-from django.shortcuts import render, redirect
+from django.shortcuts import render,
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -24,7 +24,7 @@ def students_list(request):
         students = students.order_by(order_by)
         if request.GET.get("reverse", "") == "1":
             students = students.reverse()
-    
+
     # order by last name if page loads firs time
     else:
         students = students.order_by("last_name")
@@ -41,9 +41,9 @@ def students_list(request):
         # if page is oout of range (e.g. 9999), deliver
         # last page of results
         students = paginator.page(paginator.num_pages)
-            
+
     return render(request, "students/students_list.html",
-        {"students": students})
+                  {"students": students})
 
 
 def students_add(request):
@@ -51,7 +51,7 @@ def students_add(request):
     if request.method == "POST":
         # was form add button clicked?
         if request.POST.get("add_button") is not None:
-            
+
             # errors collection
             errors = {}
             # validate student data will go here
@@ -102,7 +102,7 @@ def students_add(request):
             photo = request.FILES.get("photo")
             if photo:
                 data["photo"] = photo
- 
+
             if not errors:
                 # create student object
                 student = Student(**data)
@@ -111,21 +111,21 @@ def students_add(request):
                 # redirect user to students list
                 return HttpResponseRedirect(
                     "%s?status_message=Додано нового студента  -  %s %s" % (
-                    reverse("home"), last_name, first_name))
+                        reverse("home"), last_name, first_name))
 
             else:
                 return render(request, "students/students_add.html",
-                    {"groups": Group.objects.all().order_by("title"),
-                     "errors": errors})
+                              {"groups": Group.objects.all().order_by("title"),
+                               "errors": errors})
         elif request.POST.get("cancel_button") is not None:
             # redirect to home page on cancel button
             return HttpResponseRedirect(
-                    "%s?status_message=Додавання студента скасовано!" %
-                    reverse("home"))
+                "%s?status_message=Додавання студента скасовано!" %
+                reverse("home"))
     else:
         # initial form render
         return render(request, "students/students_add.html",
-            {"groups": Group.objects.all().order_by("title")})
+                      {"groups": Group.objects.all().order_by("title")})
 
 
 class StudentUpdateForm(ModelForm):
@@ -135,12 +135,12 @@ class StudentUpdateForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(StudentUpdateForm, self).__init__(*args, **kwargs)
-        
+
         self.helper = FormHelper(self)
 
-        #set form tag attributes
+        # set form tag attributes
         self.helper.form_action = reverse('students_edit',
-            kwargs={'pk': kwargs['instance'].id})
+                                          kwargs={'pk': kwargs['instance'].id})
         self.helper.form_class = 'form-horizontal'
         self.helper.form_methode = 'POST'
 
@@ -155,7 +155,7 @@ class StudentUpdateForm(ModelForm):
             Submit('add_button', "Зберегти", css_class="btn btn-primary"),
             Submit('cancel_button', "Скасувати", css_class="btn btn-link"),
         )
-        
+
 
 class StudentUpdateView(UpdateView):
     model = Student
@@ -169,10 +169,11 @@ class StudentUpdateView(UpdateView):
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
             return HttpResponseRedirect(
-                "%s?status_message=Редагування студента відмінено!" \
-                    % reverse('home'))
+                "%s?status_message=Редагування студента відмінено!"
+                % reverse('home'))
         else:
-            return super(StudentUpdateView, self).post(request, *args, **kwargs)
+            return \
+                super(StudentUpdateView, self).post(request, *args, **kwargs)
 
 
 class StudentDeleteView(DeleteView):

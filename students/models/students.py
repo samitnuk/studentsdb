@@ -1,12 +1,12 @@
 from django.db import models
 
+
 class Student(models.Model):
     """Student Model"""
 
     class Meta(object):
         verbose_name = "Студент"
         verbose_name_plural = "Студенти"
-
 
     first_name = models.CharField(
         max_length=256,
@@ -39,7 +39,8 @@ class Student(models.Model):
         blank=False,
         verbose_name='Білет')
 
-    student_group = models.ForeignKey('Group',
+    student_group = models.ForeignKey(
+        'Group',
         verbose_name='Група',
         blank=False,
         null=True,

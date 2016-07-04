@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from django.views.generic import UpdateView, DeleteView
+from django.views.generic import DeleteView
 
 from ..models.groups import Group
 
@@ -35,13 +36,16 @@ def groups_list(request):
         groups = paginator.page(paginator.num_pages)
 
     return render(request, 'students/groups_list.html',
-        {'groups': groups})
+                  {'groups': groups})
+
 
 def groups_add(request):
     return HttpResponse('<h1>Group Add Form</h1>')
 
+
 def groups_edit(request, pk):
     return HttpResponse('<h1>Edit Groups %s</h1>' % pk)
+
 
 class GroupDeleteView(DeleteView):
     model = Group

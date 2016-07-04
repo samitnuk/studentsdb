@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Exam(models.Model):
     """Exam Model"""
 
@@ -21,7 +22,8 @@ class Exam(models.Model):
         blank=False,
         verbose_name='ПІБ викладача')
 
-    exam_group = models.ForeignKey('Group',
+    exam_group = models.ForeignKey(
+        'Group',
         verbose_name='Група',
         blank=False,
         null=True,
