@@ -2,3 +2,4 @@ Django
 Pillow
 mysqlclient
 django-crispy-forms
+python-dateutil
