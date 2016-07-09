@@ -2,7 +2,6 @@ from datetime import datetime
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from django.forms import ModelForm
 from django.views.generic import UpdateView, DeleteView
@@ -13,6 +12,7 @@ from crispy_forms.bootstrap import FormActions
 
 from ..models.students import Student
 from ..models.groups import Group
+from ..utils import paginate
 
 
 def students_list(request):
@@ -29,21 +29,10 @@ def students_list(request):
     else:
         students = students.order_by("last_name")
 
-    # paginate students
-    paginator = Paginator(students, 3)
-    page = request.GET.get("page")
-    try:
-        students = paginator.page(page)
-    except PageNotAnInteger:
-        # if page is not an integer, deliver first page
-        students = paginator.page(1)
-    except EmptyPage:
-        # if page is oout of range (e.g. 9999), deliver
-        # last page of results
-        students = paginator.page(paginator.num_pages)
+    students = paginate(students, 3, request, {},
+                        var_name='students')
 
-    return render(request, "students/students_list.html",
-                  {"students": students})
+    return render(request, "students/students_list.html", students)
 
 
 def students_add(request):
