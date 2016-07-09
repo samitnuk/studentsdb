@@ -72,9 +72,8 @@
   </tbody>
 </table><!-- End Students Listing -->
 
-{% if groups.has_other_pages %}
-  {% url 'groups' as groups_url %}
-  {% include 'students/pagination.html' with dbdata=groups url=groups_url %}
-{% endif %}
+{% with object_list=groups %}
+  {% include 'students/pagination.html' %}
+{% endwith %}
 
 {% endblock content %}
