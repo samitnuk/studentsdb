@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
-from students.views import students, groups, exams, contact_admin
+from students.views import students, groups, exams, contact_admin, journal
 
 urlpatterns = [
 
@@ -53,6 +53,8 @@ urlpatterns = [
         name='exams_delete'),
 
     # Journal urls
+    url(r'^journal/$', journal.JournalView.as_view(),
+        name='journal'),
 
     # Contact Admin Form
     url(r'^contact_admin/$', contact_admin.ContactView.as_view(),
