@@ -74,9 +74,8 @@
   </tbody>
 </table><!-- End Students Listing -->
 
-{% if exams.has_other_pages %}
-  {% url 'exams' as exams_url %}
-  {% include 'students/pagination.html' with dbdata=exams url=exams_url %}
-{% endif %}
+{% with object_list=exams %}
+  {% include 'students/pagination.html' %}
+{% endwith %}   
 
 {% endblock content %}
