@@ -1,4 +1,6 @@
 function initJournal() {
+    var indicator = $('#ajax-progress-indicator');
+
     $('.day-box input[type="checkbox"]').click(function(event){
         var box = $(this);
         $.ajax(box.data('url'), {
@@ -11,11 +13,19 @@ function initJournal() {
                 'present': box.is(':checked') ? '1' : '',
                 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
             },
+            'beforeSend': function(){
+                indicator.empty()
+                         .append( 'Йде збереження... ' )
+                         .show();
+            },
             'error': function(xhr, status, error){
-                alert(error);
+                indicator.empty()
+                         .removeClass('alert-warning')
+                         .addClass('alert-danger')
+                         .append( 'Виникла наступна помилка: ' + error );
             },
             'success': function(data, status, xhr){
-                alert(status);
+                indicator.delay( 5800 ).empty().hide();
             }
         });
     });

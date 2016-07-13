@@ -2,11 +2,17 @@
 body {
     font-family: Ubuntu;
 }
+
 .alert {
     margin: 10px 0 5px 0;
 }
+
 h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
+}
+
+#ajax-progress-indicator {
+    display: none;
 }
 
 /* Group Selector Style */
@@ -23,11 +29,13 @@ h1, h2, h3, h4, h5, h6 {
     color: #555;
 }
 
+
 /* Footer Style */
 #footer {
     border-top: 1px solid #ddd;
     padding-top: 10px;
 }
+
 
 /* Form Styles */
 textarea,
@@ -35,6 +43,7 @@ select,
 input {
     max-width: 300px;
 }
+
 
 /* Journal Table Styles*/
 td.day-box,
