@@ -53,7 +53,7 @@ urlpatterns = [
         name='exams_delete'),
 
     # Journal urls
-    url(r'^journal/$', journal.JournalView.as_view(),
+    url(r'^journal/(?P<pk>\d+)?/?$', journal.JournalView.as_view(),
         name='journal'),
 
     # Contact Admin Form
