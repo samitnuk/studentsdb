@@ -53,8 +53,7 @@ def get_groups(request):
             'title': group.title,
             'leader': group.leader and
                       ('%s %s' % (group.leader.first_name,
-                                  group.leader.last_name)) or
-                      None,
+                                  group.leader.last_name)) or None,
             'selected': cur_group and cur_group.id == group.id and
                         True or False
         })
