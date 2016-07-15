@@ -21,7 +21,7 @@ def students_list(request):
     if current_group:
         students = Student.objects.filter(student_group=current_group)
     else:
-        # otherwise shoe all students
+        # otherwise show all students
         students = Student.objects.all()
 
     # try to order students list
