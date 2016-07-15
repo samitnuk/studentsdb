@@ -7,7 +7,7 @@ from django.views.generic.base import TemplateView
 from django.http import JsonResponse
 
 from ..models import Student, MonthJournal
-from ..utils import paginate
+from ..utils import paginate, get_current_group
 
 
 class JournalView(TemplateView):
@@ -51,7 +51,14 @@ class JournalView(TemplateView):
         if kwargs.get('pk'):
             queryset = [Student.objects.get(pk=kwargs['pk'])]
         else:
-            queryset = Student.objects.order_by('last_name')
+            # check if we need to show journal for students
+            # only from one one group
+            current_group = get_current_group(self.request)
+            if current_group:
+                queryset = Student.objects.filter(student_group=current_group)
+            else:
+                # otherwise show journal for all students
+                queryset = Student.objects.order_by('last_name')
 
         # url to update student presence, for form post
         update_url = reverse('journal')
