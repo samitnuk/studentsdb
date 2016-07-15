@@ -5,22 +5,28 @@ from django.core.urlresolvers import reverse
 from django.views.generic import DeleteView
 
 from ..models.groups import Group
-from ..utils import paginate
+from ..utils import paginate, get_current_group
 
 
 def groups_list(request):
-    groups = Group.objects.all()
-
-    # try to order groups list
-    order_by = request.GET.get('order_by', '')
-    if order_by in ('id', 'title', 'leader'):
-        groups = groups.order_by(order_by)
-        if request.GET.get('reverse', '') == '1':
-            groups = groups.reverse()
-
-    # order by title if page loads first time
+    # check if we need to show only one selected group
+    current_group = get_current_group(request)
+    if current_group:
+        groups = [current_group]
     else:
-        groups = groups.order_by('title')
+        # otherwise show all groups
+        groups = Group.objects.all()
+
+        # try to order groups list
+        order_by = request.GET.get('order_by', '')
+        if order_by in ('id', 'title', 'leader'):
+            groups = groups.order_by(order_by)
+            if request.GET.get('reverse', '') == '1':
+                groups = groups.reverse()
+
+        # order by title if page loads first time
+        else:
+            groups = groups.order_by('title')
 
     groups = paginate(groups, 3, request, {}, var_name='groups')
 
