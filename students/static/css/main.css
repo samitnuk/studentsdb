@@ -38,9 +38,7 @@ h1, h2, h3, h4, h5, h6 {
 
 
 /* Form Styles */
-textarea,
-select,
-input {
+.controls {
     max-width: 300px;
 }
 
