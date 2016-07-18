@@ -8,7 +8,7 @@ from django.views.generic import UpdateView, DeleteView
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
-from crispy_forms.bootstrap import FormActions
+from crispy_forms.bootstrap import FormActions, AppendedText
 
 from ..models.students import Student
 from ..models.groups import Group
@@ -144,6 +144,8 @@ class StudentUpdateForm(ModelForm):
         self.helper.html5_required = True
         self.helper.label_class = 'col-sm-2 control-label'
         self.helper.field_class = 'col-sm-10'
+
+        self.helper.layout[3] = AppendedText('birthday', '<i class="fa fa-calendar"></i>')
 
         # add buttons
         self.helper.layout[-1] = FormActions(
