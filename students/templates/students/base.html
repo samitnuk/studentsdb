@@ -35,7 +35,13 @@
       </div>
     </div><!-- End Header -->
 
-    <!-- Start Subheader -->
+    <!-- Start Subheader -->function initEditStudentPage() {
+    $('a.student-edit-form-link').click(function(event){
+        var modal = $('#myModal');
+        modal.modal('show');
+        return false;
+    });
+}
     <div class="row" id="sub-header">
       </div class="col-xs-12">
         <ul class="nav nav-tabs">
@@ -77,6 +83,22 @@
     </div><!-- End Footer -->
 
   </div><!-- End Container -->
+
+  <!-- Modal Boilerplate -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+       aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel"><!-- --></h4>
+        </div>
+        <div class="modal-body"><!-- --></div>
+        <div class="modal-footer"><!-- --></div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 
   <!-- Javascripts Inclusion -->
   <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
