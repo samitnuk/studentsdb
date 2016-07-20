@@ -149,7 +149,9 @@ class StudentUpdateForm(ModelForm):
 
         # add buttons
         self.helper.layout[-1] = FormActions(
-            Submit('add_button', "Зберегти", css_class="btn btn-primary"),
+            Submit('add_button', "Зберегти",
+                   data_loading_text="Йде збереження...",
+                   autocomplete="off"),
             Submit('cancel_button', "Скасувати", css_class="btn btn-link"),
         )
 
