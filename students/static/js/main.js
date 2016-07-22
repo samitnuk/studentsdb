@@ -146,7 +146,16 @@ function initEditStudentForm(form, modal) {
     });
 }
 
+function loadFromTab() {
+    $('ul.nav-tabs li a').click(function(event){
+        var link = $(this);
+        $('#content-columns').load(link.attr('href') + ' #content-columns .col-xs-12');
+        initEditStudentPage();
+    });
+}
+
 $(document).ready(function(){
+    loadFromTab();
     initJournal();
     initGroupSelector();
     initDateFields();
