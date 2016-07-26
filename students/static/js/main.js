@@ -1,7 +1,7 @@
 function initJournal() {
     var indicator = $('#ajax-progress-indicator');
 
-    $('.day-box input[type="checkbox"]').click(function(event){
+    $('.day-box input[type="checkbox"]').click(function(event) {
         var box = $(this);
         $.ajax(box.data('url'), {
             'type': 'POST',
@@ -13,18 +13,18 @@ function initJournal() {
                 'present': box.is(':checked') ? '1' : '',
                 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
             },
-            'beforeSend': function(){
+            'beforeSend': function() {
                 indicator.empty()
                          .append( 'Йде збереження... ' )
                          .show();
             },
-            'error': function(xhr, status, error){
+            'error': function(xhr, status, error) {
                 indicator.empty()
                          .removeClass('alert-warning')
                          .addClass('alert-danger')
                          .append( 'Виникла наступна помилка: ' + error );
             },
-            'success': function(data, status, xhr){
+            'success': function(data, status, xhr) {
                 indicator.delay( 5800 ).empty().hide();
             }
         });
@@ -34,7 +34,7 @@ function initJournal() {
 function initGroupSelector() {
     // look uo select element with groups and attach our even handler
     // on field "change" event
-    $('#groupe-selector select').change(function(event){
+    $('#groupe-selector select').change(function(event) {
         // get value of currently selected group option
         var group = $(this).val();
 
@@ -63,13 +63,13 @@ function initDateFields() {
 }
 
 function initEditStudentPage() {
-    $('a.student-edit-form-link').click(function(event){
+    $('a.student-edit-form-link').click(function(event) {
         var link = $(this);
         $.ajax({
             'url': link.attr('href'),
             'dataType': 'html',
             'type': 'get',
-            'success': function(data, status, xhr){
+            'success': function(data, status, xhr) {
                 // check is we got successfull responce from the server
                 if (status != 'success') {
                     alert('Помилка на сервері. Спробуйте, будь ласка, пізніше.');
@@ -92,7 +92,7 @@ function initEditStudentPage() {
                     'show': true
                 });
             },
-            'error': function(){
+            'error': function() {
                 alert('Помилка на сервері. Спробуйте, будь ласка, пізніше.');
                 return false;
             }
@@ -109,6 +109,7 @@ function initEditStudentForm(form, modal) {
     // close modal window on Cancel button click
     form.find('input[name="cancel_button"]').click(function(event){
         modal.modal('hide');
+
         return false;
     });
 
@@ -140,30 +141,33 @@ function initEditStudentForm(form, modal) {
                 // to get update students list;
                 // reload after 2 seconds, so tat user can read
                 // success message
-                setTimeout(function(){location.reload(true);}, 500);
+                setTimeout(function() {location.reload(true);}, 500);
             }
         }
     });
 }
 
 function loadFromTab() {
-    $('ul.nav-tabs li a').click( function(event){
+    $('ul.nav-tabs li a').click( function(event) {
         var link = $(this);
-        $('#content-columns').load(link.attr('href') + ' #content-columns .col-xs-12');
-
+        $('#content-columns').load(
+            link.attr('href') + ' #content-columns .col-xs-12',
+            function() {
+                initEditStudentPage();
+                return false;
+            });
         $('ul.nav-tabs li').each( function() {
             var that = $(this);
             that[ that.find('a').attr('href') === link.attr('href') ? 'addClass' : 'removeClass' ]('active');
         });
-
-        initEditStudentPage();
+        return false;
     });
 }
 
-$(document).ready(function(){
-    loadFromTab();
+$(document).ready(function() {
     initJournal();
     initGroupSelector();
     initDateFields();
     initEditStudentPage();
+    loadFromTab();
 });
