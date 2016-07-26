@@ -154,6 +154,7 @@ function loadFromTab() {
             link.attr('href') + ' #content-columns .col-xs-12',
             function() {
                 initEditStudentPage();
+                initJournal();
                 return false;
             });
         $('ul.nav-tabs li').each( function() {
@@ -164,10 +165,12 @@ function loadFromTab() {
     });
 }
 
+// TODO: after loadFromTab() pagination should work
+
 $(document).ready(function() {
-    initJournal();
     initGroupSelector();
     initDateFields();
     initEditStudentPage();
     loadFromTab();
+    initJournal();
 });
